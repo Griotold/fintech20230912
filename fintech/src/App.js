@@ -1,20 +1,23 @@
-import logo from "./logo.svg";
-import Welcome from "./components/Welcome";
-import "./App.css";
-import StateComponent from "./components/StateComponent";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ListComponent from "./components/ListComponent";
+import HeaderComponent from "./components/HeaderComponent";
 import EventComponent from "./components/EventComponent";
-import ListComponents from "./components/ListComponents";
-import StyledComponents from "./components/StyledComponents";
 
 function App() {
   return (
-    <div className="App">
-      <Welcome username="Griotold1" age={253}></Welcome>
-      {/* <StateComponent></StateComponent> */}
-      <ListComponents></ListComponents>
-      <EventComponent></EventComponent>
-      <StyledComponents></StyledComponents>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<ListComponent></ListComponent>}></Route>
+        <Route
+          path="/header"
+          element={<HeaderComponent></HeaderComponent>}
+        ></Route>
+        <Route
+          path="/event"
+          element={<EventComponent></EventComponent>}
+        ></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
