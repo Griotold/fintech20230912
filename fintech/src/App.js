@@ -1,28 +1,20 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ListComponent from "./components/ListComponent";
-import HeaderComponent from "./components/HeaderComponent";
-import EventComponent from "./components/EventComponent";
-import AxiosComponent from "./components/AxiosComponent";
-import NewsSearch from "./pages/NewsSearch";
+import MainPage from "./pages/MainPage";
+import AuthResult from "./pages/AuthResult";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<ListComponent></ListComponent>}></Route>
+        {/* <Route path="/" element={<ListComponent></ListComponent>}></Route>
         <Route
           path="/header"
           element={<HeaderComponent></HeaderComponent>}
         ></Route>
-        <Route
-          path="/event"
-          element={<EventComponent></EventComponent>}
-        ></Route>
-        <Route
-          path="/axios"
-          element={<AxiosComponent></AxiosComponent>}
-        ></Route>
-        <Route path="/news" element={<NewsSearch></NewsSearch>}></Route>
+        <Route path="/axios" element={<AxiosComponent />}></Route>
+        <Route path="/news" element={<NewsSearch />}></Route> */}
+        <Route path="/" element={<MainPage />}></Route>
+        <Route path="/authResult" element={<AuthResult />}></Route>
       </Routes>
     </BrowserRouter>
   );
