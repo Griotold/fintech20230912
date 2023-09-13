@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ListComponent from "./components/ListComponent";
 import HeaderComponent from "./components/HeaderComponent";
 import EventComponent from "./components/EventComponent";
+import AxiosComponent from "./components/AxiosComponent";
 
 function App() {
   return (
@@ -15,6 +16,10 @@ function App() {
         <Route
           path="/event"
           element={<EventComponent></EventComponent>}
+        ></Route>
+        <Route
+          path="/axios"
+          element={<AxiosComponent></AxiosComponent>}
         ></Route>
       </Routes>
     </BrowserRouter>
