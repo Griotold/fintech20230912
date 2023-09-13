@@ -3,6 +3,7 @@ import ListComponent from "./components/ListComponent";
 import HeaderComponent from "./components/HeaderComponent";
 import EventComponent from "./components/EventComponent";
 import AxiosComponent from "./components/AxiosComponent";
+import NewsSearch from "./pages/NewsSearch";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           path="/axios"
           element={<AxiosComponent></AxiosComponent>}
         ></Route>
+        <Route path="/news" element={<NewsSearch></NewsSearch>}></Route>
       </Routes>
     </BrowserRouter>
   );
