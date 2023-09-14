@@ -4,11 +4,13 @@ import queryString from "query-string";
 import axios from "axios";
 import BalanceCard from "../components/balance/BalanceCard";
 import HeaderComponent from "../components/HeaderComponent";
+import TransactionList from "../components/balance/TransactionList";
 
 const BalancePage = () => {
   let accessToken = "";
   let userSeqNo = "";
   const [balance, setBalance] = useState("아직없음");
+  const [transactionList, setTransactionList] = useState([]);
 
   const queryParams = useLocation().search;
   const parsed = queryString.parse(queryParams);
@@ -35,12 +37,12 @@ const BalancePage = () => {
     accessToken = localStorage.getItem("accessToken");
     userSeqNo = localStorage.getItem("userSeqNo");
     getBalance();
+    getTransactionList();
   }, []);
 
   function getCurrentDateTime() {
     const now = new Date();
 
-    const getBalance = () => {};
     const year = now.getFullYear();
     const month = String(now.getMonth() + 1).padStart(2, "0");
     const day = String(now.getDate()).padStart(2, "0");
@@ -74,6 +76,33 @@ const BalancePage = () => {
     });
   };
 
+  const getTransactionList = () => {
+    const sendObj = {
+      bank_tran_id: genTrasId(),
+      fintech_use_num: fintechUseNum,
+      inquiry_type: "A",
+      inquiry_base: "D",
+      from_date: "20230101",
+      to_date: "20230101",
+      sort_order: "D",
+      tran_dtime: "20230803110700",
+    };
+    const option = {
+      method: "GET",
+      url: "v2.0/account/transaction_list/fin_num",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      params: sendObj,
+    };
+
+    axios(option).then(({ data }) => {
+      console.log(data);
+      setTransactionList(data.res_list);
+    });
+  };
+
   return (
     <div>
       <HeaderComponent title={"잔액 조회"} />
@@ -82,6 +111,7 @@ const BalancePage = () => {
         fintechNo={balance.fintech_use_num}
         balance={balance.balance_amt}
       ></BalanceCard>
+      <TransactionList transactionList={transactionList}></TransactionList>
     </div>
   );
 };
