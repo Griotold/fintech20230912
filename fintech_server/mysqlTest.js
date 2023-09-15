@@ -13,7 +13,9 @@ const connection = mysql.createConnection({
 
 // simple query
 connection.query("SELECT * FROM user", function (err, results, fields) {
-  console.log(err);
+  if (err) {
+    console.log(err);
+  }
   console.log(results); // results contains rows returned by server
   console.log(fields); // fields contains extra meta data about results, if available
 });
