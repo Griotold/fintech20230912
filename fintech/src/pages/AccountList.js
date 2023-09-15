@@ -1,44 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import MainAccountCard from "../components/list/MainAccountCard";
 import axios from "axios";
+import HeaderComponent from "../components/HeaderComponent";
 
 const AccountList = () => {
-  let accessToken = "";
-  let userSeqNo = "";
-  let [accountList, setAccountList] = useState([]);
+  const [accountList, setAccountList] = useState([]);
 
   useEffect(() => {
-    console.log(localStorage.getItem("accessToken"));
-    console.log(localStorage.getItem("userSeqNo"));
-    accessToken = localStorage.getItem("accessToken");
-    userSeqNo = localStorage.getItem("userSeqNo");
+    console.log("data");
     getAccountList();
   }, []);
 
   const getAccountList = () => {
-    //axios 요청
-    const sendData = {
-      user_seq_no: userSeqNo,
-    };
-
-    const option = {
+    const ourtoken = localStorage.getItem("ourtoken");
+    let requestOption = {
+      url: "/account",
       method: "GET",
-      url: "/v2.0/user/me",
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        Authorization: `Bearer ${accessToken}`,
+        ourtoken: ourtoken,
       },
-      params: sendData,
     };
 
-    axios(option).then(({ data }) => {
-      console.log(data.res_list);
-      setAccountList(data.res_list);
+    axios(requestOption).then((response) => {
+      console.log(response);
+      setAccountList(response.data.res_list);
     });
   };
 
   return (
     <div>
+      <HeaderComponent title={"계좌조회"}></HeaderComponent>
       {accountList.map((account) => {
         return (
           <MainAccountCard
